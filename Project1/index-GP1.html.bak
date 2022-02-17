@@ -14,10 +14,10 @@
 
 <body>
     <nav>
-        <a id="Home" href="../index.html">Home</a> |
-        <a id="Project_1" href="../Project2/index-GP2.html">Project 2</a> |
-        <a id="Project_2" href="../Project3/index-GP3.html">Project 3</a> |
-        <a id="Project_2" href="../Project4/index-GP4.html">Project 4</a> |
+        <a id="Home" href="C:\Users\dnr94_000\Source\Repos\csc-4110-group-5\index.html">Home</a> |
+        <a id="Project_1" href="C:\Users\dnr94_000\Source\Repos\csc-4110-group-5\Project2\index-GP2.html">Project 2</a> |
+        <a id="Project_2" href="C:\Users\dnr94_000\Source\Repos\csc-4110-group-5\Project3\index-GP3.html">Project 3</a> |
+        <a id="Project_2" href="C:\Users\dnr94_000\Source\Repos\csc-4110-group-5\Project4\index-GP4.html">Project 4</a> |
 
     </nav>
     <main>
