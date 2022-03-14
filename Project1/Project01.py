@@ -6,7 +6,7 @@ def addEmployee():
     addForm = tk.Toplevel(root)
     addForm.title("Add Employee")
     addForm.geometry('500x400')
-    addForm.configure(background = "grey");
+    #addForm.configure(background = "grey");
 
     id = ttk.Label(addForm ,text = "Employee ID:").grid(row = 0,column = 0)
     first = ttk.Label(addForm ,text = "First Name:").grid(row = 1,column = 0)
@@ -18,41 +18,77 @@ def addEmployee():
     phone = ttk.Label(addForm ,text = "Phone Number: ").grid(row = 7,column = 0)
     skills = ttk.Label(addForm ,text = "Skills: ").grid(row = 8,column = 0)
 
-    id_field = ttk.Entry(addForm).grid(row = 0,column = 1)
-    first_field = ttk.Entry(addForm).grid(row = 1,column = 1)
-    last_field = ttk.Entry(addForm).grid(row = 2,column = 1)
-    position_field = ttk.Entry(addForm).grid(row = 3,column = 1)
-    ssn_field = ttk.Entry(addForm).grid(row = 4,column = 1)
-    address_field = ttk.Entry(addForm).grid(row = 5,column = 1)
-    email_field = ttk.Entry(addForm).grid(row = 6,column = 1)
-    phone_field = ttk.Entry(addForm).grid(row = 7,column = 1)
-    skills_field = ttk.Entry(addForm).grid(row = 8,column = 1)
+    id_field = ttk.Entry(addForm)
+    id_field.grid(row = 0,column = 1)
+    first_field = ttk.Entry(addForm)
+    first_field.grid(row = 1,column = 1)
+    last_field = ttk.Entry(addForm)
+    last_field.grid(row = 2,column = 1)
+    position_field = ttk.Entry(addForm)
+    position_field.grid(row = 3,column = 1)
+    ssn_field = ttk.Entry(addForm)
+    ssn_field.grid(row = 4,column = 1)
+    address_field = ttk.Entry(addForm)
+    address_field.grid(row = 5,column = 1)
+    email_field = ttk.Entry(addForm)
+    email_field.grid(row = 6,column = 1)
+    phone_field = ttk.Entry(addForm)
+    phone_field.grid(row = 7,column = 1)
+    skills_field = ttk.Entry(addForm)
+    skills_field.grid(row = 8,column = 1)
+
+    #Arguments get passed to back end functions here
+    submit = ttk.Button(addForm, text="Submit", command=lambda:addEmployeeAction(id_field.get(), first_field.get(), last_field.get(), position_field.get(), ssn_field.get(), address_field.get(), email_field.get(), phone_field.get(), skills_field.get())).grid(row = 9, column = 0)
+
+#Back end function
+def addEmployeeAction(id, first, last, position, ssn, address, email, phone, skills):
+
+    return 0
 
 def delEmployee():
     delForm = tk.Toplevel(root)
     delForm.title("Remove Employee")
     delForm.geometry('500x400')
-    delForm.configure(background = "grey");
+    #delForm.configure(background = "grey");
 
     id = ttk.Label(delForm ,text = "Employee ID:").grid(row = 0,column = 0)
 
-    id_field = ttk.Entry(delForm).grid(row = 0,column = 1)
+    id_field = ttk.Entry(delForm)
+    id_field.grid(row = 0,column = 1)
+    #Arguments get passed to back end functions here
+    submit = ttk.Button(delForm, text="Submit", command=lambda:delEmployeeAction(id_field.get())).grid(row = 1,column = 0)
+
+   #Back end function
+def delEmployeeAction(id):
+    
+    return 0
 
 def findEmployee():
     findForm = tk.Toplevel(root)
     findForm.title("Find Employee")
     findForm.geometry('500x400')
-    findForm.configure(background = "grey");
+    #findForm.configure(background = "grey");
 
     id = ttk.Label(findForm ,text = "Employee ID:").grid(row = 0,column = 0)
-
+    
     id_field = ttk.Entry(findForm).grid(row = 0,column = 1)
+    id_field.grid(row = 0,column = 1)
+    #Arguments get passed to back end functions here
+    submit = ttk.Button(findForm, text="Submit", command=lambda:findEmployeeAction(id_field.get())).grid(row = 1,column = 0)
+
+#Back end function
+def findEmployee(id):
+    return 0
+
+#quit button action
+def quit():
+    root.destroy()
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Main View")
     root.geometry('500x400')
-    root.configure(background = "grey");
+    #root.configure(background = "grey");
 
     addButton = ttk.Button(root ,text="Add Employee", command = addEmployee)
     addButton.pack()
@@ -62,5 +98,8 @@ if __name__ == '__main__':
 
     findButton = ttk.Button(root ,text="Find Employee", command = findEmployee)
     findButton.pack()
+
+    quitButton = ttk.Button(root, text="Quit", command = quit)
+    quitButton.pack()
 
     root.mainloop()
