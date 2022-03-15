@@ -96,7 +96,7 @@ def findEmployee():
 
     id = ttk.Label(findForm ,text = "Employee ID:").grid(row = 0,column = 0)
     
-    id_field = ttk.Entry(findForm).grid(row = 0,column = 1)
+    id_field = ttk.Entry(findForm)
     id_field.grid(row = 0,column = 1)
 
     #Arguments get passed to back end functions here
@@ -110,6 +110,20 @@ def findEmployeeAction(id):
     if id in database:
         print("%s found!" % id)
         print(database[id])
+        
+        message = \
+            "ID: " + id + "\n"\
+            "First Name: " + database[id][0] + "\n"\
+            "Last Name: " + database[id][1] + "\n"\
+            "Position: " + database[id][2] + "\n"\
+            "SSN: " + database[id][3] + "\n"\
+            "Address: " + database[id][4] + "\n"\
+            "Email Address: " + database[id][5] + "\n"\
+            "Phone Number: " + database[id][6] + "\n"\
+            "Skills: " + database[id][7] + "\n"\
+
+        tkmb.showinfo(id, message)
+
         return True
     else:
         print("%s not found!" % id)
