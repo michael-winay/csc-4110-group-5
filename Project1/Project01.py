@@ -2,7 +2,12 @@ import tkinter as tk
 import tkinter.messagebox as tkmb
 import tkinter.ttk as ttk
 
+database = {}
+
 def addEmployee():
+
+    """ Creates an add employee button to implement the addEmployeeAction function."""
+
     addForm = tk.Toplevel(root)
     addForm.title("Add Employee")
     addForm.geometry('500x400')
@@ -43,9 +48,19 @@ def addEmployee():
 #Back end function
 def addEmployeeAction(id, first, last, position, ssn, address, email, phone, skills):
 
-    return 0
+    """ Adds an employee to the directory using the user input."""
+
+    if id in database:
+        print("Employee ID already exists. Please enter a different ID.")
+        return 0
+    else:
+        database[id] = [first, last, position, ssn, address, email, phone, skills]
+        print("Database updated!")
 
 def delEmployee():
+
+    """ Creates a delete employee button."""
+
     delForm = tk.Toplevel(root)
     delForm.title("Remove Employee")
     delForm.geometry('500x400')
@@ -60,10 +75,20 @@ def delEmployee():
 
    #Back end function
 def delEmployeeAction(id):
+
+    """ Deletes an employee from the directory."""
     
-    return 0
+    if id in database:
+        del database[id]
+        print("Employee deleted!")
+    else:
+        print("Employee ID does not exist.")
+        return 0
 
 def findEmployee():
+
+    """ Creates a query button."""
+
     findForm = tk.Toplevel(root)
     findForm.title("Find Employee")
     findForm.geometry('500x400')
@@ -73,15 +98,28 @@ def findEmployee():
     
     id_field = ttk.Entry(findForm).grid(row = 0,column = 1)
     id_field.grid(row = 0,column = 1)
+
     #Arguments get passed to back end functions here
     submit = ttk.Button(findForm, text="Submit", command=lambda:findEmployeeAction(id_field.get())).grid(row = 1,column = 0)
 
 #Back end function
-def findEmployee(id):
-    return 0
+def findEmployeeAction(id):
+
+    """ Queries the directory for the employee matching the given id."""
+
+    if id in database:
+        print("%s found!" % id)
+        print(database[id])
+        return True
+    else:
+        print("%s not found!" % id)
+        return False
 
 #quit button action
 def quit():
+
+    """ Quits the program."""
+
     root.destroy()
 
 if __name__ == '__main__':
