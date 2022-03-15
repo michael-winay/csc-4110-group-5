@@ -1,8 +1,14 @@
 import tkinter as tk
 import tkinter.messagebox as tkmb
 import tkinter.ttk as ttk
+import pickle
+from os.path import exists
 
 database = {}
+file_exists = exists("database.pickle")
+if file_exists:
+    pickle_off = open("database.pickle","rb")
+    database = pickle.load(pickle_off)
 
 def addEmployee():
 
@@ -134,6 +140,9 @@ def quit():
 
     """ Quits the program."""
 
+    pickling_on = open("database.pickle","wb")
+    pickle.dump(database, pickling_on)
+    pickling_on.close()
     root.destroy()
 
 if __name__ == '__main__':
