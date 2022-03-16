@@ -31,22 +31,30 @@ def addEmployee():
 
     id_field = ttk.Entry(addForm)
     id_field.grid(row = 0,column = 1)
+    id_field.insert(tk.INSERT, "No special characters")
     first_field = ttk.Entry(addForm)
     first_field.grid(row = 1,column = 1)
+    first_field.insert(tk.INSERT, "Alpha chars only")
     last_field = ttk.Entry(addForm)
     last_field.grid(row = 2,column = 1)
+    last_field.insert(tk.INSERT, "Alpha chars only")
     position_field = ttk.Entry(addForm)
     position_field.grid(row = 3,column = 1)
+    position_field.insert(tk.INSERT, "No special characters")
     ssn_field = ttk.Entry(addForm)
     ssn_field.grid(row = 4,column = 1)
+    ssn_field.insert(tk.INSERT, "XXX-XX-XXXX format")
     address_field = ttk.Entry(addForm)
     address_field.grid(row = 5,column = 1)
+    address_field.insert(tk.INSERT, "No special characters")
     email_field = ttk.Entry(addForm)
     email_field.grid(row = 6,column = 1)
     phone_field = ttk.Entry(addForm)
     phone_field.grid(row = 7,column = 1)
+    phone_field.insert(tk.INSERT, "XXX-XXX-XXXX format")
     skills_field = ttk.Entry(addForm)
     skills_field.grid(row = 8,column = 1)
+    skills_field.insert(tk.INSERT, "No special characters")
 
     #Arguments get passed to back end functions here
     submit = ttk.Button(addForm, text="Submit", command=lambda:addEmployeeAction(id_field.get(), first_field.get(), last_field.get(), position_field.get(), ssn_field.get(), address_field.get(), email_field.get(), phone_field.get(), skills_field.get())).grid(row = 9, column = 0)
@@ -56,12 +64,38 @@ def addEmployeeAction(id, first, last, position, ssn, address, email, phone, ski
 
     """ Adds an employee to the directory using the user input."""
 
+    # This filters the users' input for illegal format/characters
+    if testSpecial(id):
+        print("ID contains illegal character! Resubmit request.")
+        return 0
+    if testSpecialAndNum(first):
+        print("First contains illegal character! Resubmit request.")
+        return 0
+    if testSpecialAndNum(last):
+        print("Last contains illegal character! Resubmit request.")
+        return 0
+    if testSpecial(position):
+        print("ID contains illegal character! Resubmit request.")
+        return 0
+    if "-" not in ssn:
+        print("SSN not in correct format. Resubmit request.")
+    if testSpecial(address):
+        print("Address contains illegal character! Resubmit request.")
+        return 0
+    if "-" not in phone:
+        print("Phone number is not in the correct format. Resubmit request.")
+    if testSpecial(skills):
+        print("Skills contain illegal character! Resubmit request.")
+        return 0
+
+    # Checks if id is already in the database to eliminate duplicates
     if id in database:
         print("Employee ID already exists. Please enter a different ID.")
         return 0
     else:
         database[id] = [first, last, position, ssn, address, email, phone, skills]
         print("Database updated!")
+        return 0
 
 def delEmployee():
 
@@ -84,6 +118,7 @@ def delEmployeeAction(id):
 
     """ Deletes an employee from the directory."""
     
+    # Checks for the existense of employee and deletes them
     if id in database:
         del database[id]
         print("Employee deleted!")
@@ -113,6 +148,7 @@ def findEmployeeAction(id):
 
     """ Queries the directory for the employee matching the given id."""
 
+    # If employee is found prints their data
     if id in database:
         print("%s found!" % id)
         print(database[id])
@@ -120,6 +156,78 @@ def findEmployeeAction(id):
     else:
         print("%s not found!" % id)
         return False
+
+#test function
+def testSpecial(subject):
+    if "!" in subject:
+        return True
+    if "@" in subject:
+        return True
+    if "#" in subject:
+        return True
+    if "$" in subject:
+        return True
+    if "%" in subject:
+        return True
+    if "^" in subject:
+        return True
+    if "&" in subject:
+        return True
+    if "*" in subject:
+        return True
+    if "*" in subject:
+        return True
+    if "(" in subject:
+        return True
+    if ")" in subject:
+        return True
+    return False
+
+#test function
+def testSpecialAndNum(subject):
+    if "!" in subject:
+        return True
+    if "@" in subject:
+        return True
+    if "#" in subject:
+        return True
+    if "$" in subject:
+        return True
+    if "%" in subject:
+        return True
+    if "^" in subject:
+        return True
+    if "&" in subject:
+        return True
+    if "*" in subject:
+        return True
+    if "*" in subject:
+        return True
+    if "(" in subject:
+        return True
+    if ")" in subject:
+        return True
+    if "0" in subject:
+        return True
+    if "1" in subject:
+        return True
+    if "2" in subject:
+        return True
+    if "3" in subject:
+        return True
+    if "4" in subject:
+        return True
+    if "5" in subject:
+        return True
+    if "6" in subject:
+        return True
+    if "7" in subject:
+        return True
+    if "8" in subject:
+        return True
+    if "9" in subject:
+        return True
+    return False
 
 #quit button action
 def quit():
