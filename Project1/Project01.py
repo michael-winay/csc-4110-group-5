@@ -68,28 +68,27 @@ def addEmployeeAction(id, first, last, position, ssn, address, email, phone, ski
     if testSpecial(id):
         print("ID contains illegal character! Resubmit request.")
         return 0
-    if testSpecialAndNum(first):
+    elif testSpecialAndNum(first):
         print("First contains illegal character! Resubmit request.")
         return 0
-    if testSpecialAndNum(last):
+    elif testSpecialAndNum(last):
         print("Last contains illegal character! Resubmit request.")
         return 0
-    if testSpecial(position):
+    elif testSpecial(position):
         print("ID contains illegal character! Resubmit request.")
         return 0
-    if "-" not in ssn:
+    elif "-" not in ssn:
         print("SSN not in correct format. Resubmit request.")
-    if testSpecial(address):
+    elif testSpecial(address):
         print("Address contains illegal character! Resubmit request.")
         return 0
-    if "-" not in phone:
+    elif "-" not in phone:
         print("Phone number is not in the correct format. Resubmit request.")
-    if testSpecial(skills):
+    elif testSpecial(skills):
         print("Skills contain illegal character! Resubmit request.")
         return 0
-
     # Checks if id is already in the database to eliminate duplicates
-    if id in database:
+    elif id in database:
         print("Employee ID already exists. Please enter a different ID.")
         return 0
     else:
