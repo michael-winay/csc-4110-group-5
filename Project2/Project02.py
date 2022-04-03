@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.messagebox as tkmb
 import tkinter.ttk as ttk
 import pickle
+from PIL import ImageTk, Image
 from os.path import exists
 
 database = {}
@@ -104,11 +105,11 @@ def delDrinkAction(id):
         print("Employee ID does not exist.")
         return 0"""
 
-def findDrink():
+def findDrink(drinkImage):
 
     """ Creates a query button."""
 
-    findForm = tk.Toplevel(root)
+    """findForm = tk.Toplevel(root)
     findForm.title("Order Drink from the Menu")
     findForm.geometry('500x400')
     #findForm.configure(background = "grey");
@@ -119,7 +120,14 @@ def findDrink():
     name_field.grid(row = 0,column = 1)
 
     #Arguments get passed to back end functions here
-    submit = ttk.Button(findForm, text="Submit", command=lambda:findDrinkAction(name_field.get())).grid(row = 1,column = 0)
+    submit = ttk.Button(findForm, text="Submit", command=lambda:findDrinkAction(name_field.get())).grid(row = 1,column = 0)"""
+
+    findForm = tk.Toplevel(root)
+    findForm.title("Order Drink from the Menu")
+    findForm.geometry('500x400')
+    
+    findDrinkLabel = tk.Label(findForm, image=drinkImage)
+    findDrinkLabel.grid(row = 0,column = 1)
 
 #Back end function
 def findDrinkAction(id):
@@ -234,19 +242,42 @@ def quit():
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Main View")
-    root.geometry('500x400')
+    root.geometry('800x246')
     #root.configure(background = "grey");
 
-    addButton = ttk.Button(root ,text="Add Drink", command = addDrink)
-    addButton.pack()
+    menuImageOne = ImageTk.PhotoImage(Image.open('images/old-fashioned.png').resize((120, 246)))
+    menuImageTwo = ImageTk.PhotoImage(Image.open('images/negroni.png').resize((120, 246)))
+    menuImageThree = ImageTk.PhotoImage(Image.open('images/moscow-mule.png').resize((120, 246)))
+    menuImageFour = ImageTk.PhotoImage(Image.open('images/martini.png').resize((120, 246)))
+    menuImageFive = ImageTk.PhotoImage(Image.open('images/margarita.png').resize((120, 246)))
+    menuImageSix = ImageTk.PhotoImage(Image.open('images/cosmopolitan.png').resize((120, 246)))
 
-    delButton = ttk.Button(root ,text="Remove Drink", command = delDrink)
-    delButton.pack()
+    """menuLabelOne = tk.Label(image=menuImageOne)
+    menuLabelTwo = tk.Label(image=menuImageTwo)
+    menuLabelThree = tk.Label(image=menuImageThree)
+    menuLabelFour = tk.Label(image=menuImageFour)
+    menuLabelFive = tk.Label(image=menuImageFive)
+    menuLabelSix = tk.Label(image=menuImageSix)"""
 
-    findButton = ttk.Button(root ,text="Order Drink", command = findDrink)
-    findButton.pack()
+    menuButtonOne = ttk.Button(root, image=menuImageOne, command = lambda:findDrink(menuImageOne))
+    menuButtonOne.grid(row = 0,column = 0)
 
-    quitButton = ttk.Button(root, text="Quit", command = quit)
-    quitButton.pack()
+    menuButtonTwo = ttk.Button(root, image=menuImageTwo, command = lambda:findDrink(menuImageTwo))
+    menuButtonTwo.grid(row = 0,column = 1)
+
+    menuButtonThree = ttk.Button(root, image=menuImageThree, command = lambda:findDrink(menuImageThree))
+    menuButtonThree.grid(row = 0,column = 2)
+
+    menuButtonFour = ttk.Button(root, image=menuImageFour, command = lambda:findDrink(menuImageFour))
+    menuButtonFour.grid(row = 0,column = 3)
+
+    menuButtonFive = ttk.Button(root, image=menuImageFive, command = lambda:findDrink(menuImageFive))
+    menuButtonFive.grid(row = 0,column = 4)
+
+    menuButtonSix = ttk.Button(root, image=menuImageSix, command = lambda:findDrink(menuImageSix))
+    menuButtonSix.grid(row = 0,column = 5)
+
+    menuButtonQuit = ttk.Button(root, text="Quit", command = quit)
+    menuButtonQuit.grid(row = 1, column = 0)
 
     root.mainloop()
