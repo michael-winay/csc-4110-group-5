@@ -6,6 +6,7 @@ import pickle
 from PIL import ImageTk, Image
 from tkinter import filedialog
 from os.path import exists
+import re
 
 """Drink class"""
 
@@ -50,6 +51,8 @@ class Drink:
         return self.image_path
 
 database = []
+inventory = {"whiskey": 2, "Angostura bitters": 2, "sugar cube": 1, "orange twist": 1, "gin": 1, "campari": 1, "vermouth": 2, "vodka": 4.5, "ginger beer": 3, "lime juice": 2, "olive": 1,\
+"silver tequila": 2, "cointreau": 2, "salt": 1, "cranberry juice": 1}
 file_exists = exists("database.pickle")
 if file_exists:
     pickle_off = open("database.pickle","rb")
@@ -58,43 +61,43 @@ else:
     pickling_on = open("database.pickle","wb")
     
     oldfashioned = Drink("old-fashioned",\
-        ["2 oz bourbon or rye whiskey",\
-        "2 dashes Angostura bitters",\
-        "1 sugar cube or 1 tsp sugar"\
-        "Orange twist garnish"],\
-        5, "Michael", 'images/old-fashioned.png')
+        {"whiskey": 2,
+        "Angostura bitters": 2,
+        "sugar cube": 1,
+        "orange twist": 1},\
+        5, "Michael", 'Project2\images\old-fashioned.png')
 
     negroni = Drink("negroni",\
-        ["1 oz gin",\
-        "1 oz Campari",\
-        "1 oz sweet vermouth"],\
-        3, "Michael", 'images/negroni.png')
+        {"gin": 1,
+        "campari": 1,
+        "vermouth": 1},\
+        3, "Michael", 'Project2\images\negroni.png')
 
     moscowmule = Drink("moscow-mule",\
-        ["2 oz vodka",\
-        "4 to 6 oz ginger beer",\
-        ".5 oz lime juice"],\
-        3, "Michael", 'images/moscow-mule.png')
+        {"vodka": 2,
+        "ginger beer": 3,
+        "lime juice": 0.5},\
+        3, "Michael", 'Project2\images\moscow-mule.png')
 
     martini = Drink("martini",\
-        ["3 oz gin or vodka",\
-        ".5 oz dry vermouth",\
-        "Lemon peel or olive"],\
-        5, "Michael", 'images/old-fashioned.png')
+        {"vodka": 3,
+        "vermouth": 0.5,
+        "olive": 1},\
+        5, "Michael", 'Project2\images\old-fashioned.png')
 
     margarita = Drink("margarita",\
-        ["2 oz silver tequila"
-        "1 oz Cointreau",\
-        "1 oz lime juice",\
-        "Salt for the rim"],\
-        5, "Michael", 'images/margarita.png')
+        {"silver tequila": 2,
+        "cointreau": 1,
+        "lime juice": 1,
+        "salt": 1},\
+        5, "Michael", 'Project2\images\margarita.png')
 
     cosmopolitan = Drink("cosmopolitan",\
-        ["1.5 oz citrus vodka",\
-        "1 oz Cointreau",\
-        ".5 oz lime juice",\
-        ".25 oz cranberry juice"],\
-        5, "Michael", 'images/cosmopolitan.png')
+        {"vodka": 1.5,
+        "cointreau": 1,
+        "lime juice": 0.5,
+        "cranberry juice": 0.25},\
+        5, "Michael", 'Project2\images\cosmopolitan.png')
 
     database.append(oldfashioned)
     database.append(negroni)
@@ -159,10 +162,10 @@ def addDrink():
 
 #Back end function
 def addDrinkAction(name, recipe, time, server, image_path):
-    #This should move the image at image_path to the local images directory
+    #This should move the image at image_path to the local images menu
     #also add the input as an object of the drink class
 
-    """ Adds an employee to the directory using the user input."""
+    """ Adds a drink to the menu using the user input."""
 
     # This filters the users' input for illegal format/characters
     """if testSpecial(id):
@@ -188,12 +191,13 @@ def addDrinkAction(name, recipe, time, server, image_path):
         print("Skills contain illegal character! Resubmit request.")
         return 0
 
-    # Checks if id is already in the database to eliminate duplicates
-    if id in database:
-        print("Employee ID already exists. Please enter a different ID.")
+    # Checks if drink is already in the database to eliminate duplicates
+    if name in database:
+        print("Drink already exists. Please enter a different drink.")
         return 0
     else:
-        database[id] = [first, last, position, ssn, address, email, phone, skills]
+        locals()[name] = Drink(name, recipe, time, server, image_path)
+        database.append(name)
         print("Database updated!")
         return 0"""
 
@@ -229,17 +233,17 @@ def findDrink(drink, index):
 
    #Back end function
 
-def delDrinkAction(id):
+def delDrinkAction(name):
 
-    """ Deletes an employee from the directory."""
+    """ Deletes a drink from the menu."""
     
-    # Checks for the existense of employee and deletes them
-    """if id in database:
-        del database[id]
-        print("Employee deleted!")
+    # Checks for the existense of the drink and deletes it.
+    if name in database:
+        del database[name]
+        print("Drink deleted!")
     else:
-        print("Employee ID does not exist.")
-        return 0"""
+        print("Drink, name, "does not exist.")
+        return 0
 
 def quit():
 
