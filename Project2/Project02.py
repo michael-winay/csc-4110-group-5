@@ -263,11 +263,13 @@ if __name__ == '__main__':
     for i in range(0, len(database)):
         menuButton = ttk.Button(root, image = menuImageArray[i], command = lambda:findDrink(database[i], i))
         menuButton.grid(row = 0, column = i)
+        findDrinkLabel = tk.Label(root, text=database[i].getName())
+        findDrinkLabel.grid(row = 1,column = i)
 
     menuButtonAdd= ttk.Button(root, text="Add", command = addDrink)
-    menuButtonAdd.grid(row = 1, column = 0)
+    menuButtonAdd.grid(row = 2, column = 0)
 
     menuButtonQuit = ttk.Button(root, text="Save & Quit", command = quit)
-    menuButtonQuit.grid(row = 1, column = 1)
+    menuButtonQuit.grid(row = 2, column = 1)
 
     root.mainloop()
