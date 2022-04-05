@@ -71,7 +71,7 @@ else:
         {"gin": 1,
         "campari": 1,
         "vermouth": 1},\
-        3, "Michael", 'Project2\images\negroni.png')
+        3, "Michael", 'images\negroni.png')
 
     moscowmule = Drink("moscow-mule",\
         {"vodka": 2,
@@ -242,7 +242,7 @@ def delDrinkAction(name):
         del database[name]
         print("Drink deleted!")
     else:
-        print("Drink, name, "does not exist.")
+        print("Drink", name, "does not exist.")
         return 0
 
 def quit():
