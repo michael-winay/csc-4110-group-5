@@ -51,6 +51,8 @@ class Drink:
         return self.image_path
 
 database = []
+logEntries = []
+servers = {1: "Michael", 2: "Derek", 3: "Veronica", 4: "Hassan"}
 inventory = {"whiskey": 2, "Angostura bitters": 2, "sugar cube": 1, "orange twist": 1, "gin": 1, "campari": 1, "vermouth": 2, "vodka": 4.5, "ginger beer": 3, "lime juice": 2, "olive": 1,\
 "silver tequila": 2, "cointreau": 2, "salt": 1, "cranberry juice": 1}
 file_exists = exists("database.pickle")
@@ -60,7 +62,7 @@ if file_exists:
 else:
     pickling_on = open("database.pickle","wb")
     
-    oldfashioned = Drink("old-fashioned",\
+    oldfashioned = Drink("old_fashioned",\
         {"whiskey": 2,
         "Angostura bitters": 2,
         "sugar cube": 1,
@@ -73,7 +75,7 @@ else:
         "vermouth": 1},\
         3, "Michael", 'images\negroni.png')
 
-    moscowmule = Drink("moscow-mule",\
+    moscowmule = Drink("moscow_mule",\
         {"vodka": 2,
         "ginger beer": 3,
         "lime juice": 0.5},\
@@ -167,29 +169,12 @@ def addDrinkAction(name, recipe, time, server, image_path):
 
     """ Adds a drink to the menu using the user input."""
 
-    # This filters the users' input for illegal format/characters
-    """if testSpecial(id):
-        print("ID contains illegal character! Resubmit request.")
-        return 0
-    if testSpecialAndNum(first):
-        print("First contains illegal character! Resubmit request.")
-        return 0
-    if testSpecialAndNum(last):
-        print("Last contains illegal character! Resubmit request.")
-        return 0
-    if testSpecial(position):
-        print("ID contains illegal character! Resubmit request.")
-        return 0
-    if "-" not in ssn:
-        print("SSN not in correct format. Resubmit request.")
-    if testSpecial(address):
-        print("Address contains illegal character! Resubmit request.")
-        return 0
-    if "-" not in phone:
-        print("Phone number is not in the correct format. Resubmit request.")
-    if testSpecial(skills):
-        print("Skills contain illegal character! Resubmit request.")
-        return 0
+    # This filters the users' input for illegal characters
+    
+    x = re.findall("\W", name)
+    while x:
+            name = input("Drink name contains illegal characters. Please retype, and use _ for spaces.")
+            x = re.findall("\W", name)
 
     # Checks if drink is already in the database to eliminate duplicates
     if name in database:
@@ -199,7 +184,7 @@ def addDrinkAction(name, recipe, time, server, image_path):
         locals()[name] = Drink(name, recipe, time, server, image_path)
         database.append(name)
         print("Database updated!")
-        return 0"""
+        return 0
 
 def findDrink(drink, index):
 
