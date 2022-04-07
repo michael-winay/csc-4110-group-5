@@ -13,7 +13,7 @@ setItem: (key,value) => {
 },
 
 }
-const storageType = cookieStorage;
+const storageType = sessionStorage;
 const consentPropertyName= 'jdc_consent';
 
 const shouldShowPopup = () => !storageType.getItem(consentPropertyName);
@@ -34,7 +34,7 @@ window.onload = () => {
         setTimeout(() =>{
             consentPopup.classList.remove('hidden');
 
-        }, 2000);
+        }, 500);
         
 
 }};
