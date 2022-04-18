@@ -6,6 +6,7 @@ from pygame.sprite import *
 
 #sprites
 class Mole(Sprite):
+
     def __init__(self, x, y):
         Sprite.__init__(self)
 
@@ -15,8 +16,8 @@ class Mole(Sprite):
         self.rect.center = (x, y)
 
     def random_pos(self):
-        self.rect.centerx = random.randrange(25, 475)
-        self.rect.centery = random.randrange(60, 475)
+        self.rect.centerx = hole_horizontal[str(random.randrange(1, 3))]
+        self.rect.centery = hole_vertical[str(random.randrange(1, 3))]
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -33,6 +34,19 @@ display.set_caption("Whack-a-mole")
 icon = pygame.image.load("Project3/whack-a-mole.png")
 pygame.display.set_icon(icon)
 
+# Static Hole PNG
+holeimg = pygame.image.load("Project3/hole.png")
+hole_left = 50
+hole_middle = 220
+hole_right = 390
+hole_top = 100
+hole_mid = 250
+hole_bottom = 400
+hole_horizontal = {"1": hole_left + 33, "2": hole_middle + 33, "3": hole_right + 33}
+hole_vertical = {"1": hole_top + 30, "2": hole_mid + 30, "3": hole_bottom + 30}
+
+print(hole_horizontal["1"])
+
 # Score
 score_value = 0
 font = pygame.font.Font("freesansbold.ttf", 32)
@@ -47,14 +61,7 @@ def show_score(x, y):
 background = image.load("Project3/grass.jpg")
 mole = Mole(screen_rect.centerx, screen_rect.centery)
 
-# Static Hole PNG
-holeimg = pygame.image.load("Project3/hole.png")
-hole_left = 50
-hole_middle = 220
-hole_right = 390
-hole_top = 100
-hole_mid = 250
-hole_bottom = 400
+
 
 def hole1():
     screen.blit(holeimg, (hole_left, hole_top))
