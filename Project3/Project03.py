@@ -211,6 +211,8 @@ while GAME_RUNNING:
                 mixer.music.play()               
                 mole.random_pos()
                 score_value += 1
+                if score_value > highscore:
+                    highscore = score_value
                 
     screen.blit(background, (0, 0))
     hole1()
