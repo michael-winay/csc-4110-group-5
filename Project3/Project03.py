@@ -1,4 +1,5 @@
 """Importing """
+from pickle import FALSE
 import random
 import pygame
 import pickle
@@ -73,6 +74,8 @@ screen = display.set_mode((500, 500))
 screen_rect = screen.get_rect()
 display.set_caption("Whack-a-mole")
 icon = pygame.image.load("Project3/whack-a-mole.png")
+
+
 pygame.display.set_icon(icon)
 
 # Static Hole PNG
@@ -182,6 +185,7 @@ def show_highscore(x, y):
 
 background = image.load("Project3/grass.jpg")
 mole = Mole(screen_rect.centerx, screen_rect.centery)
+mixer.music.load("Project3\smash.mp3") #loading music and hit sound
 
 #main game loop
 game_clock = time.Clock()
@@ -201,12 +205,13 @@ while GAME_RUNNING:
         elif event.type == KEYUP:
             if event.key == K_ESCAPE:
                 GAME_RUNNING = False
-
+        
         elif event.type == MOUSEBUTTONDOWN:
             if mole.collide_point(event.pos):
+                mixer.music.play()               
                 mole.random_pos()
                 score_value += 1
-
+                
     screen.blit(background, (0, 0))
     hole1()
     hole2()
