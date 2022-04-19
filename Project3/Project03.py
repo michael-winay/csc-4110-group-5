@@ -2,6 +2,8 @@
 from pickle import FALSE
 import random
 import pygame
+import pickle
+from os.path import exists
 from pygame import *
 from pygame.display import *
 from pygame.sprite import *
@@ -142,14 +144,20 @@ def hole9():
     """
     screen.blit(holeimg, (HOLE_RIGHT, HOLE_BOTTOM))
 
-print(hole_horizontal["1"])
-
 # Score
-SCORE_VALUE = 0
+score_value = 0
+highscore = 0
+file_exists = exists("highscore.pickle")
+if file_exists:
+    pickle_off = open("highscore.pickle","rb")
+    highscore = pickle.load(pickle_off)
+
 font = pygame.font.Font(None, 32)
 
-TEXT_X = 180
+TEXT_X = 300
 TEXT_Y = 10
+HIGHSCORE_X = 100
+HIGHSCORE_Y = 10
 
 def show_score(x, y):
 
@@ -160,7 +168,19 @@ def show_score(x, y):
         x - Horizontal coordinate
         y - Vertical coordinate
     """
-    score = font.render("Score: " + str(SCORE_VALUE), True, (0,0,0))
+    score = font.render("Score: " + str(score_value), True, (0,0,0))
+    screen.blit(score, (x, y))
+
+def show_highscore(x, y):
+
+    """
+    Renders current score at the middle/top of the screen
+
+    Parameters
+        x - Horizontal coordinate
+        y - Vertical coordinate
+    """
+    score = font.render("Highscore: " + str(highscore), True, (0,0,0))
     screen.blit(score, (x, y))
 
 background = image.load("Project3/grass.jpg")
@@ -174,6 +194,12 @@ GAME_RUNNING = True
 while GAME_RUNNING:
     for event in pygame.event.get():
         if event.type == QUIT:
+            if score_value > highscore:
+                highscore = score_value
+            pickling_on = open("highscore.pickle","wb")
+            pickle.dump(highscore, pickling_on)
+            pickling_on.close()
+
             GAME_RUNNING = False
 
         elif event.type == KEYUP:
@@ -182,11 +208,12 @@ while GAME_RUNNING:
         
         elif event.type == MOUSEBUTTONDOWN:
             if mole.collide_point(event.pos):
-                mixer.music.play()
-                
+                mixer.music.play()               
                 mole.random_pos()
-                SCORE_VALUE += 1
-    
+                score_value += 1
+                if score_value > highscore:
+                    highscore = score_value
+                
     screen.blit(background, (0, 0))
     hole1()
     hole2()
@@ -199,7 +226,7 @@ while GAME_RUNNING:
     hole9()
     mole.draw(screen)
     show_score(TEXT_X, TEXT_Y)
-   
+    show_highscore(HIGHSCORE_X, HIGHSCORE_Y)
     display.flip()
 
 pygame.quit()
