@@ -146,7 +146,7 @@ print(hole_horizontal["1"])
 
 # Score
 SCORE_VALUE = 0
-font = pygame.font.Font("freesansbold.ttf", 32)
+font = pygame.font.Font(None, 32)
 
 TEXT_X = 180
 TEXT_Y = 10
