@@ -1,4 +1,5 @@
 
+import pydoc
 import tkinter as tk
 import tkinter.messagebox as tkmb
 import tkinter.ttk as ttk
@@ -9,7 +10,8 @@ from tkinter import Frame, filedialog
 from os.path import exists
 import os
 import re
-
+from pygame import Cursor
+import pyodbc
 """Drink class"""
 
 #improvements:
@@ -60,6 +62,17 @@ class Drink:
     def getImagePath(self):
         return self.image_path
 
+def connectDB():
+    conn = pyodbc.connect(
+    'Driver={SQL Server};'
+    'Server=(local);'
+    'Database=orders;'
+    'Trusted_Connection=yes;'
+    )
+    cursor = conn.cursor()
+    cursor.execute('Select * from orders')
+    for i in cursor:
+        print(i)
 database = []
 logEntries = []
 

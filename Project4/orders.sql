@@ -1,8 +1,8 @@
-CREATE table orders(
-"id" INT primary key,
-"server" varchar(30),
-"drinks" varchar(30),
-"ingredients" varchar(30),
-"price" double(4,2)
-
-);
+CREATE TABLE orders(
+"isbn" INT primary KEY,
+"Title" VARCHAR(30),
+"Author" varchar(30),
+"purchased" INT,
+"stocked" INT,
+"price" DOUBLE(4,2)
+)
