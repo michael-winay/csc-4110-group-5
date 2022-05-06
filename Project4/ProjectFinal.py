@@ -1,5 +1,6 @@
 
 import pydoc
+from sqlite3 import connect
 import tkinter as tk
 import tkinter.messagebox as tkmb
 import tkinter.ttk as ttk
@@ -12,6 +13,7 @@ import os
 import re
 from pygame import Cursor
 import pyodbc
+
 """Drink class"""
 
 #improvements:
@@ -63,16 +65,15 @@ class Drink:
         return self.image_path
 
 def connectDB():
+    query='Select * from orders'
     conn = pyodbc.connect(
-    'Driver={SQL Server};'
-    'Server=(local);'
-    'Database=orders;'
-    'Trusted_Connection=yes;'
+    'Driver={SQL Server}; Server=( localhost:3306); Database=id18892795_barmaster;Trusted_Connection=yes;'
     )
     cursor = conn.cursor()
-    cursor.execute('Select * from orders')
+    cursor.execute(query)
     for i in cursor:
         print(i)
+
 database = []
 logEntries = []
 
@@ -212,7 +213,7 @@ def addDrink():
     image_path = ttk.Label(addForm, text = "")
     image_path.grid(row = 6, column = 2)
 
-    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(isbn_field.get(), title_field.get(), author_field.get(), purchased_field.get(), stocked_field.get(), price_field.get(), file_path))
+    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(isbn_field.get(), title_field.get(), author_field.get(), purchased_field.get(), stocked_field.get(), price_field.get(), connectDB))
     submit.grid(row = 9, column = 0)
 
 #Back end function
