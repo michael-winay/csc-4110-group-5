@@ -1,4 +1,3 @@
-
 import pydoc
 from sqlite3 import connect
 import tkinter as tk
@@ -17,7 +16,8 @@ import pyodbc
 """Drink class"""
 
 #improvements:
-#fixed major bug in drink selection and deletion
+#added cloud functionality
+#fixed major bug in drink selection
 
 #automatic page closure
 #dynamic main view
@@ -179,33 +179,25 @@ def addDrink():
     addForm.title("Add Drink to the Database")
     addForm.geometry('500x400')
 
-    isbn = ttk.Label(addForm, text= "ISBN:")
-    isbn.grid(row = 0, column = 0)
-    title = ttk.Label(addForm, text = "Title:")
-    title.grid(row = 1,column = 0)
-    author = ttk.Label(addForm, text = "Author:")
-    author.grid(row = 2,column = 0)
-    purchased = ttk.Label(addForm, text = "# Purchased:")
-    purchased.grid(row = 3,column = 0)
-    stocked = ttk.Label(addForm, text = "# Stocked:")
-    stocked.grid(row = 4,column = 0)
-    price = ttk.Label(addForm, text = "Price:")
-    price.grid(row = 5, column = 0)
-    image_path = ttk.Label(addForm, text = "Cover Art:")
+    name = ttk.Label(addForm, text= "Drink Name:")
+    name.grid(row = 0, column = 0)
+    recipe = ttk.Label(addForm, text = "Recipe:")
+    recipe.grid(row = 1,column = 0)
+    time = ttk.Label(addForm, text = "Time:")
+    time.grid(row = 2,column = 0)
+    server = ttk.Label(addForm, text = "Server:")
+    server.grid(row = 3,column = 0)
+    image_path = ttk.Label(addForm, text = "Drink Image:")
     image_path.grid(row = 6, column = 0)
 
-    isbn_field = ttk.Entry(addForm)
-    isbn_field.grid(row = 0,column = 1)
-    title_field = ttk.Entry(addForm)
-    title_field.grid(row = 1,column = 1)
-    author_field = ttk.Entry(addForm)
-    author_field.grid(row = 2,column = 1)
-    purchased_field = ttk.Entry(addForm)
-    purchased_field.grid(row = 3,column = 1)
-    stocked_field = ttk.Entry(addForm)
-    stocked_field.grid(row = 4, column = 1)
-    price_field = ttk.Entry(addForm)
-    price_field.grid(row = 5, column = 1)
+    name_field = ttk.Entry(addForm)
+    name_field.grid(row = 0,column = 1)
+    recipe_field = ttk.Entry(addForm)
+    recipe_field.grid(row = 1,column = 1)
+    time_field = ttk.Entry(addForm)
+    time_field.grid(row = 2,column = 1)
+    server_field = ttk.Entry(addForm)
+    server_field.grid(row = 3,column = 1)
     
     image_button = tk.Button(addForm, text = "Browse...", command = lambda:imageFileExplorer(image_path))
     image_button.grid(row = 6, column = 1)
@@ -213,52 +205,38 @@ def addDrink():
     image_path = ttk.Label(addForm, text = "")
     image_path.grid(row = 6, column = 2)
 
-    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(isbn_field.get(), title_field.get(), author_field.get(), purchased_field.get(), stocked_field.get(), price_field.get(), connectDB))
+    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(name_field.get(), recipe_field.get(), time_field.get(), server_field.get(), connectDB))
     submit.grid(row = 9, column = 0)
 
 #Back end function
-def addDrinkAction(isbn, title, author, purchased, stocked, price, image_path):
+def addDrinkAction(name, recipe, time, server, image_path):
 
     """ Adds a Drink to the menu using the user input."""
 
     # This filters the users' input for illegal input
-    authorCheck = re.findall("[^a-zA-Z\s:]", author)
-    isbnCheck = re.findall("\D+", isbn)
-    purchasedCheck = re.findall("\D+", purchased)
-    stockedCheck = re.findall("\D+", stocked)
-    try:
-        float(price)
-        priceCheck = False
-    except ValueError:
-        priceCheck = True
+    nameCheck = re.findall("[^a-zA-Z\s:]", name)
+    serverCheck = re.findall("[^a-zA-Z\s:]", server)
+    timeCheck = re.findall("\D+", time)
 
-    if(isbnCheck):
-        tkmb.showinfo("ERROR", "ERROR: ISBN must only contain numbers")
+    if(nameCheck):
+        tkmb.showinfo("ERROR", "ERROR: Drink name must only contain alphabetical characters")
         return 0;
 
-    elif(authorCheck):
-        tkmb.showinfo("ERROR", "ERROR: Author must only contain alphabetical characters")
+    elif(serverCheck):
+        tkmb.showinfo("ERROR", "ERROR: Server name must only contain alphabetical characters")
         return 0;
 
-    elif(purchasedCheck):
-        tkmb.showinfo("ERROR", "ERROR: Purchased must only contain numbers")
+    elif(timeCheck):
+        tkmb.showinfo("ERROR", "ERROR: Time must only contain numbers")
         return 0;
-
-    elif(stockedCheck):
-        tkmb.showinfo("ERROR", "ERROR: Stocked must only contain numbers")
-        return 0;
-
-    elif(priceCheck):
-        tkmb.showinfo("ERROR", "ERROR: Price should be a decimal value")
-        return 0;
-            
-    if isbn in database:
-        print("ISBN already exists. Please enter a different ISBN.")
+  
+    if name in database:
+        print("Drink already exists. Please enter a different name.")
         return 0
 
     else:
-        locals()[title] = Drink(isbn, title, author, purchased, stocked, price, image_path)
-        database.append(locals()[title])
+        locals()[name] = Drink(name, recipe, time, server, image_path)
+        database.append(locals()[name])
         print("Database updated!")
         addForm.destroy()
         resetFrame()
@@ -348,3 +326,4 @@ if __name__ == '__main__':
     frame.grid(row = 0, column = 0)
 
     root.mainloop()
+
