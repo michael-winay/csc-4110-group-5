@@ -205,7 +205,7 @@ def addDrink():
     image_path = ttk.Label(addForm, text = "")
     image_path.grid(row = 6, column = 2)
 
-    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(name_field.get(), recipe_field.get(), time_field.get(), server_field.get(), connectDB))
+    submit = ttk.Button(addForm, text="Submit", command=lambda:addDrinkAction(name_field.get(), recipe_field.get(), time_field.get(), server_field.get(), file_path))
     submit.grid(row = 9, column = 0)
 
 #Back end function
